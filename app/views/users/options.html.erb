@@ -1,5 +1,7 @@
-<% provide(:title,"Edit Streams") %>
 
+<h1>
+<%=Select the streams of interest% >
+</h1>
 <%= form_for @user, :url => addstream_users_path, :html=> {:method=>:put} do |f|%>
 <%= f.collection_check_boxes :stream_ids,Stream.all,:id,:stream_name,{:item_wrapper_class => 'checkbox_container'}%>
 <%= hidden_field_tag 'user_id', current_user.id  %>

@@ -7,8 +7,16 @@
     <%= @user.designation %>
    </h1>
 <div>
-<%= button_to "add stream", option_users_path, :method => "get" %>
+<%= form_for(@user) do |f|%>
+<%= f.file_field :image%>
+<%= f.submit "Add image"%>
+<% end %>
 </div>
+<div>
+<%= button_to "add stream", option_users_path(current_user), :method => "get" %>
+</div>
+
+
 </section>
   </aside>
 </div>

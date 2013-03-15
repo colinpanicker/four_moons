@@ -3,5 +3,4 @@ class StreamUser < ActiveRecord::Base
 belongs_to :user
 belongs_to :stream
 
-#validates {:stream_id , :user_id} , uniqueness: true 
 end

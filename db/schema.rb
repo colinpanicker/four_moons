@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130312174630) do
+ActiveRecord::Schema.define(:version => 20130315073514) do
 
   create_table "stream_users", :force => true do |t|
     t.integer  "user_id"
@@ -23,8 +23,9 @@ ActiveRecord::Schema.define(:version => 20130312174630) do
   create_table "streams", :force => true do |t|
     t.integer  "stream_id"
     t.string   "stream_name"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.string   "stream_table_name"
   end
 
   create_table "users", :force => true do |t|

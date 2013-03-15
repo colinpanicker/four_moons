@@ -30,8 +30,8 @@ class UsersController < ApplicationController
   @user = User.find(params[:id])
   end
 
-define options
-@user=User.find(params[:id])
+def option
+@user= User.find(params[:format])
 end
 
   def update
@@ -47,6 +47,8 @@ end
 
 
 def addstream
+@user=User.find(params[:user_id])
+StreamUser.delete(params[:user_id])
 a=params[:user]
 a.each_value do |val|
 val.each do |f|
