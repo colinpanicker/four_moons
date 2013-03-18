@@ -3,6 +3,7 @@ FourMoons::Application.routes.draw do
 collection do
  put 'addstream'
  get 'option'
+ put 'addimage'
 end
 end
   resources :sessions, only: [:new, :create, :destroy]

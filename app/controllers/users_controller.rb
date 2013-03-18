@@ -34,16 +34,22 @@ def option
 @user= User.find(params[:format])
 end
 
-  def update
-     @user = User.find(params[:id])
-      if @user.update_attributes(params[:user])
-       flash[:success] = "Profile updated"
-       sign_in @user
-       redirect_to @user
-      else
+ def update
+          @user = User.find(params[:id])
+       if @user.update_attributes(params[:user])
+        flash[:success] = "Profile updated"
+        sign_in @user
+        redirect_to @user
+       else
         render 'edit'
-      end
-  end
+       end
+   end
+
+def addimage
+@user=User.find(params[:id])
+  @user.update_attributes(image: params[:user])
+  redirect_to @user
+end
 
 
 def addstream
@@ -58,9 +64,7 @@ end
 redirect_to @user
 end
 
-def addimage
-redirect_to root_path
-end
+
 
 
 private

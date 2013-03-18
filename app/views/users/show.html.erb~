@@ -7,10 +7,12 @@
     <%= @user.designation %>
    </h1>
 <div>
-<%= form_for(@user) do |f|%>
-<%= link_to image_tag(apps/assets/images/anon.)%>
+<%= form_for @user, :url=>addimage_users_path,:html=>{:multipart=>true} do |f|%>
+<%= link_to image_tag("anonymous.png"),users_path%>
 <%= f.file_field :image%>
+<%= hidden_field_tag 'id', current_user.id  %>
 <%= f.submit "Add image"%>
+
 <% end %>
 </div>
 <div>

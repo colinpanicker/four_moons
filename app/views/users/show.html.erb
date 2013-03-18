@@ -8,8 +8,8 @@
    </h1>
 <div>
 <%= form_for(@user) do |f|%>
-<%= f.file_field :image%>
-<%= f.submit "Add image"%>
+  <%= link_to image_tag("anonymous.png"),edit_user_path(current_user) if !@user.image? %>
+  <%= image_tag @user.image_url(:thumb) if @user.image?%>
 <% end %>
 </div>
 <div>
