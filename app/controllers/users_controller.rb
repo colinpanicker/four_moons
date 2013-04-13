@@ -46,27 +46,23 @@ end
    end
 
 def addimage
-@user=User.find(params[:id])
+  @user=User.find(params[:id])
   @user.update_attributes(image: params[:user])
   redirect_to @user
 end
 
 
 def addstream
-@user=User.find(params[:user_id])
-StreamUser.delete_all(user_id: params[:user_id])
-a=params[:user]
-a.each_value do |val|
-val.each do |f|
-StreamUser.create(stream_id: f.to_s, user_id: params[:user_id])
+ @user=User.find(params[:user_id])
+ StreamUser.delete_all(user_id: params[:user_id])
+ a=params[:user]
+ a.each_value do |val|
+  val.each do |f|
+   StreamUser.create(stream_id: f.to_s, user_id: params[:user_id])
+ end
+ end
+ redirect_to @user
 end
-end
-redirect_to @user
-end
-
-
-
-
 private
   def signed_in_user
     redirect_to signin_path, notice: "Please sign in." unless signed_in?
@@ -75,5 +71,5 @@ private
   def correct_user
    @user = User.find(params[:id])
    redirect_to(root_path) unless current_user?(@user)
-end
+  end
 end

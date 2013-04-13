@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130315073514) do
+ActiveRecord::Schema.define(:version => 20130412173228) do
 
   create_table "stream_users", :force => true do |t|
     t.integer  "user_id"
@@ -26,6 +26,15 @@ ActiveRecord::Schema.define(:version => 20130315073514) do
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
     t.string   "stream_table_name"
+  end
+
+  create_table "user_files", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "file_name"
+    t.string   "file"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+    t.string   "file_description"
   end
 
   create_table "users", :force => true do |t|

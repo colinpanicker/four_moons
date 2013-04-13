@@ -12,6 +12,7 @@
 class User < ActiveRecord::Base
   attr_accessible :email, :name ,:password ,:password_confirmation, :qualification, :designation,:image
   has_many :stream_users
+  has_many :user_files
   has_many :streams, through: :stream_users
   has_secure_password
 

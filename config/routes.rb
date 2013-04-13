@@ -1,10 +1,19 @@
 FourMoons::Application.routes.draw do
+
+
  resources :users do
 collection do
  put 'addstream'
  get 'option'
  put 'addimage'
 end
+end
+resources :files do
+  collection do
+    post 'addfile'
+    get 'list'
+    get 'download'
+  end
 end
   resources :sessions, only: [:new, :create, :destroy]
 
