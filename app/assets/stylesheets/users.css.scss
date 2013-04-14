@@ -1,3 +1,14 @@
-// Place all the styles related to the Users controller here.
+.checkbox_container {
+  display: inline-block;
+  vertical-align: -5px;
+  margin: 5px;
+ }
+.checkbox_container input {
+  display: inline;
+ }
+.checkbox_container .collection_check_boxes{
+  display: inline;
+  vertical-align: -1px;
+ }// Place all the styles related to the Users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/

@@ -1,0 +1,4 @@
+class Streams < ActiveRecord::Base
+  attr_accessible :stream_id, :stream_name
+  has_and_belongs_to_many :users
+end

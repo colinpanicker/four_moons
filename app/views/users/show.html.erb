@@ -3,9 +3,27 @@
   <aside class="span4">
    <section>
    <h1>
-    <%= @user.name %>
+    <%= @user.name %></br>
+    <%= @user.designation %>
    </h1>
-   </section>
+<div>
+<%= form_for(@user) do |f|%>
+  <%= link_to image_tag("anonymous.png"),edit_user_path(current_user) if !@user.image? %>
+  <%= image_tag @user.image_url(:thumb) if @user.image?%>
+<% end %>
+</div>
+<div>
+
+<% if current_user?(@user)%>	
+<%= button_to "add stream", option_users_path(current_user), :method => "get" %>
+<%= link_to image_tag("upload.jpeg"),new_file_path, :method=> "get"%>
+<% end %>
+<%= link_to image_tag("download.jpeg"),list_files_path(@user.id), :method=> "get"%>
+
+</div>
+
+
+</section>
   </aside>
 </div>
 
