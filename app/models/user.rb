@@ -10,10 +10,13 @@
 #
 
 class User < ActiveRecord::Base
-  attr_accessible :email, :name ,:password ,:password_confirmation
-
+  attr_accessible :email, :name ,:password ,:password_confirmation, :qualification, :designation,:image
+  has_many :stream_users
+  has_many :user_files
+  has_many :streams, through: :stream_users
   has_secure_password
 
+  mount_uploader :image,ImageUploader
 
   validates :name, presence: true, length: { maximum: 50 }
 
@@ -32,6 +35,6 @@ private
   def create_remember_token
    self.remember_token = SecureRandom.urlsafe_base64
   end
-
+  
 
 end

@@ -11,7 +11,31 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130219190407) do
+ActiveRecord::Schema.define(:version => 20130412173228) do
+
+  create_table "stream_users", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "stream_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "streams", :force => true do |t|
+    t.integer  "stream_id"
+    t.string   "stream_name"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.string   "stream_table_name"
+  end
+
+  create_table "user_files", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "file_name"
+    t.string   "file"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+    t.string   "file_description"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "name"
@@ -20,6 +44,9 @@ ActiveRecord::Schema.define(:version => 20130219190407) do
     t.datetime "updated_at",      :null => false
     t.string   "password_digest"
     t.string   "remember_token"
+    t.string   "qualification"
+    t.string   "designation"
+    t.string   "image"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
