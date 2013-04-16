@@ -1,7 +1,7 @@
 <h1>My Files</h1>
 
 <% @user=params[:format]%>
-<%= will_paginate %>
+
 
  <% UserFile.all.each do |user_file| %>
    
@@ -12,6 +12,6 @@
      <% end %>
   
 <% end %>
-<%= will_paginate %>
+
 
 

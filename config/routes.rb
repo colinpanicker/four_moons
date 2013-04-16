@@ -7,7 +7,13 @@ collection do
  get 'option'
  put 'addimage'
 end
+member do
+get :following, :followers
 end
+end
+
+
+
 resources :files do
   collection do
     post 'addfile'
@@ -16,9 +22,11 @@ resources :files do
   end
 end
   resources :sessions, only: [:new, :create, :destroy]
+  resources :questions, only: [:create, :destroy]
+  resources :relationships, only: [:create, :destroy]
 
 
-  root :to => 'static_pages#login'
+  root :to => 'static_pages#home'
    
   match '/signup', to: 'users#new'
   match '/signin', to: 'sessions#new'

@@ -8,11 +8,15 @@
    </h1>
 <div>
 <%= form_for(@user) do |f|%>
-  <%= link_to image_tag("anonymous.png"),edit_user_path(current_user) if !@user.image? %>
+  <%= link_to image_tag("anonymous.png"),edit_user_path(@user) if !@user.image? %>
   <%= image_tag @user.image_url(:thumb) if @user.image?%>
 <% end %>
 </div>
 <div>
+ <section>
+<%= render 'shared/stats' %>
+</section>
+ 
 
 <% if current_user?(@user)%>	
 <%= button_to "add stream", option_users_path(current_user), :method => "get" %>
@@ -21,10 +25,26 @@
 <%= link_to image_tag("download.jpeg"),list_files_path(@user.id), :method=> "get"%>
 
 </div>
-
-
 </section>
   </aside>
+  <div class="column">
+  	 <aside class="span8">
+      <%= render 'follow_form' if signed_in? %>
+
+  	 	<section>
+  	 	 
+  	 		<% if @user.questions.any? %>
+              <h3>Questions (<%= @user.questions.count %>)</h3>
+                 <ol class="questions">
+                  <%= render @questions %>
+                 </ol>
+               <%= will_paginate @questions %>
+  
+            <% end %>
+        </section>
+     </aside>
+  </div>
+
 </div>
 
 

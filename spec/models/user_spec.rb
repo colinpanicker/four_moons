@@ -20,7 +20,108 @@ describe User do
      it { should respond_to(:password) }
      it { should respond_to(:password_confirmation) }
      it { should respond_to(:authenticate) }
+     it { should respond_to(:admin) }
+
      it { should respond_to(:remember_token) }
+     it { should respond_to(:questions) }
+     it { should respond_to(:feed) }
+     it { should respond_to(:relationships) }
+     it { should respond_to(:followed_users) }
+     it { should respond_to(:reverse_relationships) }
+     it { should respond_to(:followers) }
+     
+     it { should respond_to(:followed_users) }
+     it { should respond_to(:following?) }
+     it { should respond_to(:follow!) }
+     it { should respond_to(:unfollow!) }
+     
+     it { should be_valid }
+     it { should_not be_admin }
+
+
+     describe "with admin attribute set to 'true'" do
+          before { @user.toggle!(:admin) }
+          it { should be_admin }
+     end
+
+
+
+
+     describe "following" do
+      let(:other_user) { FactoryGirl.create(:user) }
+        before do
+         @user.save
+         @user.follow!(other_user)
+        end
+        it { should be_following(other_user) }
+        its(:followed_users) { should include(other_user) }
+
+        describe "followed user" do
+           subject { other_user }
+           its(:followers) { should include(@user) }
+        end
+
+
+        describe "and unfollowing" do
+         before { @user.unfollow!(other_user) }
+           it { should_not be_following(other_user) }
+           its(:followed_users) { should_not include(other_user) }
+        end
+
+     end
+
+
+
+
+
+    describe "questions associations" do
+         before { @user.save }
+          let!(:older_question) do
+             FactoryGirl.create(:question, user: @user, created_at: 1.day.ago)
+          end
+          let!(:newer_question) do
+             FactoryGirl.create(:question, user: @user, created_at: 1.hour.ago)
+          end
+
+          describe "status" do
+            let(:unfollowed_question) do
+              FactoryGirl.create(:question, user: FactoryGirl.create(:user))
+            end
+            let(:followed_user) { FactoryGirl.create(:user) }
+            before do
+             @user.follow!(followed_user)
+              3.times { followed_user.questions.create!(content: "Lorem ipsum",stream_id:"2") } 
+             end
+            its(:feed) { should include(newer_question) }
+            its(:feed) { should include(older_question) }
+            its(:feed) { should_not include(unfollowed_question) }
+
+            its(:feed) do
+                followed_user.questions.each do |question|
+                  should include(question)
+                end
+            end
+          end        
+
+
+ 
+
+
+           it "should have the right questions in the right order" do
+             @user.questions.should == [newer_question, older_question]
+          end
+
+          it "should destroy associated questions" do
+            questions = @user.questions
+             @user.destroy
+             questions.each do |question|
+               Question.find_by_id(question.id).should be_nil
+             end
+          end
+
+      end
+
+
 
      describe "remember token" do
        before { @user.save }
