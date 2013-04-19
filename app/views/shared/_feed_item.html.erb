@@ -1,0 +1,17 @@
+<li id="<%= feed_item.id %>">
+<span class="user">
+<%= link_to feed_item.user.name, feed_item.user %>
+</br>
+<%= link_to feed_item.stream.stream_name, feed_item.stream %>
+</span>
+<span class="content"><%= feed_item.content %></span>
+<span class="timestamp">
+Posted <%= time_ago_in_words(feed_item.created_at) %> ago.
+<% if current_user?(feed_item.user) %>
+<%= link_to "delete", feed_item, method: :delete,confirm: "You sure?",title: feed_item.content %>
+<% end %>
+<p> Tags: <%= raw feed_item.tag_list.map { |t| link_to t,tag_path(t)}.join(', ')%> </p>
+</span>
+
+
+</li>

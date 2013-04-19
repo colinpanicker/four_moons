@@ -1,5 +1,45 @@
 <% provide(:title ,'Home')%>
+<% if signed_in? %>
+  <div class="row">
+      <aside class="span4">
+      <section>
+        <%= render 'shared/user_info' %>
+      </section>
+      <section>
+       <%= render 'shared/stats' %>
+       </section>
+       <section>
+       <%= render 'shared/stream_stats' %>
+       <%= button_to "All Streams", streams_path, :method => "get" , class: "btn btn-medium btn-primary"%>
+       </section>
+
+      <section>
+        <%= render 'shared/question_form' %>
+      </section>
+     </aside>
+     <div class="span8">
+       <h3>Stream Feed</h3>
+         <%= render 'shared/feed' %>
+     </div>
+
+</div>
+<% else %>
+  
       <h1>Four Moons</h1>
-      <p>
-         Final Year Project Under Construction
-      </p>
+      <div class="streams">
+      <table>
+
+      <% @str = Stream.all %>
+      <%i = 0%>
+      <% while @str.at(i) do %>
+       <tr> 
+       <td><%=button_to @str.at(i).stream_name,@str.at(i),:method=>"get", class: "mybtn"%> </td>
+       <td><%=button_to @str.at(i+1).stream_name,@str.at(i+1),:method=>"get" , class: "mybtn"%></td>
+       <td><%=button_to @str.at(i+2).stream_name,@str.at(i+2),:method=>"get", class: "mybtn"%></td>
+       </tr>
+       <%i = i+3 %>
+       <%end%>
+       
+      </table>
+      </div>
+<% end %>      

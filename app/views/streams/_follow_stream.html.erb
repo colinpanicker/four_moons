@@ -1,0 +1,5 @@
+<%= form_for(current_user.stream_users.build(stream_id: @stream.stream_id)) do |f| %>
+<div><%= f.hidden_field :stream_id %></div>                                             
+<%= f.submit "Follow Stream", class: "btn btn-medium btn-primary" %>
+
+<% end %>

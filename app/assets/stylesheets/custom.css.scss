@@ -164,6 +164,108 @@ padding: 10px 0;
 border-top: 1px solid #e8e8e8;
 }
 }
+.questions {
+list-style: none;
+margin: 10px 0 0 0;
+li {
+padding: 10px 0;
+/*border-top: 1px solid #e8e8e8;*/
+}
+}
+.questioncontent {
+	display:block;
+	font-size:30px
+}
+.content {
+display: block;
+}
+.timestamp {
+color: $grayLight;
+}
+aside {
+textarea {
+height: 100px;
+margin-bottom: 5px;
+}
+}
+
+.stats {
+overflow: auto;
+a {
+float: left;
+padding: 0 10px;
+border-left: 1px solid $grayLighter;
+color: gray;
+&:first-child {
+padding-left: 0;
+border: 0;
+}
+&:hover {
+text-decoration: none;
+color: $blue;
+}
+}
+strong {
+display: block;
+}
+}
+
+.stream_stats {
+overflow: auto;
+a {
+float: left;
+padding: 0 10px;
+border-left: 1px solid $grayLighter;
+color: gray;
+&:first-child {
+padding-left: 0;
+border: 0;
+}
+&:hover {
+text-decoration: none;
+color: $blue;
+}
+}
+strong {
+display: block;
+}
+}
+
+.mybtn {
+	-moz-box-shadow:inset 0px 1px 0px 0px #bbdaf7;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #bbdaf7;
+	box-shadow:inset 0px 1px 0px 0px #bbdaf7;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #79bbff), color-stop(1, #378de5) );
+	background:-moz-linear-gradient( center top, #79bbff 5%, #378de5 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#79bbff', endColorstr='#378de5');
+	background-color:#79bbff;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	width: 100%;
+	border-radius:6px;
+	border:1px solid #84bbf3;
+	display:inline-block;
+	color:#ffffff;
+	font-family:arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:32px 76px;
+	text-decoration:none;
+	margin-top:10px;
+	margin-left:50px;
+	margin-right:50px;
+	margin-bottom:10px;
+}.mybtn:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #378de5), color-stop(1, #79bbff) );
+	background:-moz-linear-gradient( center top, #378de5 5%, #79bbff 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#378de5', endColorstr='#79bbff');
+	background-color:#378de5;
+}.mybtn:active {
+	position:relative;
+	top:1px;
+}
+
+
 
 .content {
 display: block;

@@ -10,7 +10,20 @@ collection do
  delete 'del_notifications'
  delete 'delete_profile'
 end
+member do
+get :following, :followers ,:stream_following
 end
+end
+
+resources :streams do
+  member do
+   get :stream_followers
+end
+end
+
+
+
+
 resources :files do
   collection do
     post 'addfile'
@@ -33,6 +46,7 @@ resources :groups do
   end
 end
 
+
 resources :posts do
   collection do
     post 'createpost'
@@ -42,16 +56,27 @@ resources :posts do
   end
 end
 
+resources :questions do
+  collection do
+    post 'createreply'
+    delete 'deletereply'
+  end
+end
+
   resources :sessions, only: [:new, :create, :destroy]
+  resources :relationships, only: [:create, :destroy]
+  resources :stream_users, only: [:create, :destroy]
 
 
-  root :to => 'static_pages#login'
   match 'add_notifications', to: 'users#notification'
   match 'newgroup', to: 'groups#new' 
   match 'allgroups', to: 'groups#index'
+  root :to => 'static_pages#home'
+   
   match '/signup', to: 'users#new'
   match '/signin', to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete
+  get 'tags/:tag', to: 'questions#index', as: :tag  
 
 
   # The priority is based upon order of creation:

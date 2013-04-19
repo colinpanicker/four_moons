@@ -1,0 +1,27 @@
+<% provide(:title, 'All Questions') %>
+ <h1>All Questions</h1>
+ <div id="tag_cloud">
+   <% tag_cloud Question.tag_counts,%w[s m l] do |tag,css_class|%>
+   <%= link_to tag.name,tag_path(tag.name),class: css_class %>
+   <% end%>
+ 
+   <%= will_paginate %>
+   <ul class="streams">
+    <% @questions.each do |question| %>
+        <%@question=Question.find_by_id(question)%>
+      <li>
+        <b><span><%= @question.content%></span></b>
+      </br>
+        <span class="timestamp">
+       Posted <%= time_ago_in_words( question.created_at ) %> ago
+       by <%= link_to question.user.name , question.user%>
+       <% if current_user?(question.user) %>
+       <%= link_to "delete", question, method: :delete,confirm: "You sure?",title: question.content %>
+       <p> Tags: <%= raw question.tag_list.map { |t| link_to t,tag_path(t)}.join(', ')%> </p> 
+    <% end %>
+     </span>
+          
+       </li>
+    <% end %>
+   </ul>
+   <%= will_paginate %>

@@ -1,6 +1,9 @@
-   class UsersController < ApplicationController
-  before_filter :signed_in_user, only: [:index,:edit, :update]
+class UsersController < ApplicationController
+  before_filter :signed_in_user, only: [:index,:edit, :update, :following, :followers]
   before_filter :correct_user,only: [:edit, :update]
+  before_filter :admin_user, only: :destroy
+
+
 
 
   def new
@@ -9,10 +12,13 @@
   
   def index
     @users = User.paginate(page: params[:page])
+
   end
 
   def show
    @user = User.find(params[:id])
+   @questions = @user.questions.paginate(page: params[:page],:per_page => 5)
+
   end
 
   def create
@@ -25,6 +31,14 @@
      render 'new'
     end
   end
+
+  def destroy
+    User.find(params[:id]).destroy
+    flash[:success] = "User destroyed."
+    redirect_to users_path
+end
+
+
 
   def edit
   @user = User.find(params[:id])
@@ -52,17 +66,13 @@ def addimage
 end
 
 
-def addstream
- @user=User.find(params[:user_id])
- StreamUser.delete_all(user_id: params[:user_id])
- a=params[:user]
- a.each_value do |val|
-  val.each do |f|
-   StreamUser.create(stream_id: f.to_s, user_id: params[:user_id])
- end
- end
- redirect_to @user
+def stream_following
+ @title = "Streams of Interests"
+   @user = User.find(params[:id])  
+   @streams = @user.streams.paginate(page: params[:page])
+   render 'show_streams',:id=>@user.id
 end
+
 
  def del_notifications
     current_user.notifications.each do |f|
@@ -79,16 +89,34 @@ end
      cookies.delete(:remember_token)
      redirect_to root_path
   end
+
+
+
+
+def following
+@title = "Following"
+@user = User.find(params[:id])
+@users = @user.followed_users.paginate(page: params[:page])
+render 'show_follow'
+end
+
+def followers
+@title = "Followers"
+@user = User.find(params[:id])
+@users = @user.followers.paginate(page: params[:page])
+render 'show_follow'
+end
+
+
 private
-  def signed_in_user
-    redirect_to signin_path, notice: "Please sign in." unless signed_in?
-  end
-  
+
   def correct_user
    @user = User.find(params[:id])
    redirect_to(root_path) unless current_user?(@user)
   end
 
-
+  def admin_user
+    redirect_to(root_path) unless current_user.admin?
+  end
 
 end
