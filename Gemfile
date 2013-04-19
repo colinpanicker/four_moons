@@ -9,7 +9,7 @@ gem 'bootstrap-will_paginate','0.0.6'
 gem 'simple_form'
 gem 'carrierwave'
 gem 'rmagick' 
-
+gem "opinio"
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

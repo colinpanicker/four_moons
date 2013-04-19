@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+   class UsersController < ApplicationController
   before_filter :signed_in_user, only: [:index,:edit, :update]
   before_filter :correct_user,only: [:edit, :update]
 
@@ -63,6 +63,22 @@ def addstream
  end
  redirect_to @user
 end
+
+ def del_notifications
+    current_user.notifications.each do |f|
+      Notification.destroy(f)
+    end
+    redirect_to current_user,:id=>current_user.id
+  end
+
+   def delete_profile
+    
+    User.destroy(current_user)
+    flash[:success]="Profile Deleted"
+     self.current_user = nil
+     cookies.delete(:remember_token)
+     redirect_to root_path
+  end
 private
   def signed_in_user
     redirect_to signin_path, notice: "Please sign in." unless signed_in?
@@ -72,4 +88,7 @@ private
    @user = User.find(params[:id])
    redirect_to(root_path) unless current_user?(@user)
   end
+
+
+
 end

@@ -1,0 +1,10 @@
+<div>
+	<% GroupRequest.all.each do |request|%>
+	  <% if request.user_id==current_user.id%>
+         <% group=Group.find_by_id(request.group_id)%>
+	     <b><%= "Your request for joining the group "+ group.group_name + " is " + request.status%><b>
+	     <br/>
+	  <%end%>
+	<% end %>
+	<%= button_to "OK", deletestatus_groups_path, :method=> "delete",class: "btn btn-large btn-primary"%>
+</div>

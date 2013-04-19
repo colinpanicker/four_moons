@@ -1,5 +1,9 @@
 <% provide(:title, "Edit user") %>
  <h1>Update your profile</h1>
+  <div class="nav pull-right">
+     <%= link_to "Delete Profile",delete_profile_users_path,:method=>"delete"%>
+  </div>
+    
   <div class="row">
    <div class="span6 offset3">
     <%= form_for @user ,:html=>{:multipart=>true} do |f| %>

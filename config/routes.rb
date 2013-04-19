@@ -1,11 +1,14 @@
 FourMoons::Application.routes.draw do
 
 
+
  resources :users do
 collection do
  put 'addstream'
  get 'option'
  put 'addimage'
+ delete 'del_notifications'
+ delete 'delete_profile'
 end
 end
 resources :files do
@@ -13,13 +16,39 @@ resources :files do
     post 'addfile'
     get 'list'
     get 'download'
+    delete 'delete_file'
   end
 end
+
+
+resources :groups do
+  collection do
+    put 'sendrequest'
+    put 'accept'
+    put 'reject'
+    delete 'deletestatus'
+    get 'viewstatus'
+    put 'addpost'
+    delete 'delete_group'
+  end
+end
+
+resources :posts do
+  collection do
+    post 'createpost'
+    post 'addcomment'
+    delete 'deletecomment'
+    delete 'deletepost'
+  end
+end
+
   resources :sessions, only: [:new, :create, :destroy]
 
 
   root :to => 'static_pages#login'
-   
+  match 'add_notifications', to: 'users#notification'
+  match 'newgroup', to: 'groups#new' 
+  match 'allgroups', to: 'groups#index'
   match '/signup', to: 'users#new'
   match '/signin', to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete
