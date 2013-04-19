@@ -9,6 +9,7 @@ gem 'bootstrap-will_paginate','0.0.6'
 gem 'simple_form'
 gem 'carrierwave'
 gem 'rmagick' 
+gem 'acts-as-taggable-on'
 
 
 # Bundle edge Rails instead:

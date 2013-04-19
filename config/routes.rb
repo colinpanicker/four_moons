@@ -8,9 +8,16 @@ collection do
  put 'addimage'
 end
 member do
-get :following, :followers
+get :following, :followers ,:stream_following
 end
 end
+
+resources :streams do
+  member do
+   get :stream_followers
+end
+end
+
 
 
 
@@ -21,9 +28,17 @@ resources :files do
     get 'download'
   end
 end
+
+resources :questions do
+  collection do
+    post 'createreply'
+    delete 'deletereply'
+  end
+end
+
   resources :sessions, only: [:new, :create, :destroy]
-  resources :questions, only: [:create, :destroy]
   resources :relationships, only: [:create, :destroy]
+  resources :stream_users, only: [:create, :destroy]
 
 
   root :to => 'static_pages#home'
@@ -31,6 +46,7 @@ end
   match '/signup', to: 'users#new'
   match '/signin', to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete
+  get 'tags/:tag', to: 'questions#index', as: :tag  
 
 
   # The priority is based upon order of creation:

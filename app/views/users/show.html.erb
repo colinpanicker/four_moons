@@ -19,7 +19,6 @@
  
 
 <% if current_user?(@user)%>	
-<%= button_to "add stream", option_users_path(current_user), :method => "get" %>
 <%= link_to image_tag("upload.jpeg"),new_file_path, :method=> "get"%>
 <% end %>
 <%= link_to image_tag("download.jpeg"),list_files_path(@user.id), :method=> "get"%>

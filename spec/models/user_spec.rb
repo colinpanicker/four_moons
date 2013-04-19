@@ -30,10 +30,21 @@ describe User do
      it { should respond_to(:reverse_relationships) }
      it { should respond_to(:followers) }
      
-     it { should respond_to(:followed_users) }
+
      it { should respond_to(:following?) }
      it { should respond_to(:follow!) }
      it { should respond_to(:unfollow!) }
+     
+     it { should respond_to(:stream_users) }
+     it { should respond_to(:streams) }
+     it { should respond_to(:following_stream?) }
+     it { should respond_to(:follow_stream!) }
+     it { should respond_to(:unfollow_stream!) }
+
+
+
+
+
      
      it { should be_valid }
      it { should_not be_admin }
@@ -43,7 +54,29 @@ describe User do
           before { @user.toggle!(:admin) }
           it { should be_admin }
      end
+       
+     
+     describe "following_streams" do
+       let(:stream) { FactoryGirl.create(:stream) }
+        before do
+          @user.save
+          @user.follow_stream!(stream)
+        end
+        it { should be_following_stream(stream) }
+        its(:streams) { should include(stream) }
 
+        describe "check" do
+          subject { stream }
+          its(:users) { should include(@user) }
+        end
+
+       describe "and unfollowing_streams" do
+         before { @user.unfollow_stream!(stream) }
+         it { should_not be_following_stream(stream) }
+         its(:streams) { should_not include(stream) }
+       end
+ 
+     end
 
 
 

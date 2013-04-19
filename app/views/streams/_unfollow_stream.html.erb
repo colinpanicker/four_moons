@@ -1,0 +1,4 @@
+<%= form_for(current_user.stream_users.find_by_stream_id(@stream),
+                                        html: { method: :delete }) do |f| %>
+<%= f.submit "Unfollow Stream", class: "btn btn-medium" %>
+<% end %>

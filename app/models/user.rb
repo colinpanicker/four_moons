@@ -11,7 +11,7 @@
 
 class User < ActiveRecord::Base
   attr_accessible :email, :name ,:password ,:password_confirmation, :qualification, :designation,:image
-  has_many :stream_users
+  has_many :stream_users, dependent: :destroy
   has_many :user_files
   has_many :streams, through: :stream_users
   has_many :questions , dependent: :destroy
@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
   has_many :reverse_relationships, foreign_key: "followed_id",
             class_name: "Relationship",dependent: :destroy
   has_many :followers, through: :reverse_relationships, source: :follower
-          
+  has_many :replies
 
 
 
@@ -42,7 +42,7 @@ class User < ActiveRecord::Base
  validates :password_confirmation, presence: true
 
   def feed
-   Question.from_users_followed_by(self)
+   Question.from_users_and_streams_followed_by(self)
   end
 
   def following?(other_user)
@@ -56,6 +56,20 @@ class User < ActiveRecord::Base
   def unfollow!(other_user)
     relationships.find_by_followed_id(other_user.id).destroy
   end
+
+  def following_stream?(stream)
+   stream_users.find_by_stream_id(stream.stream_id)
+  end
+
+  def follow_stream!(stream)
+   stream_users.create!(stream_id: stream.stream_id)
+  end
+
+  def unfollow_stream!(stream)
+    stream_users.find_by_stream_id(stream.stream_id).destroy
+end
+
+
 
 
 

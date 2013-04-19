@@ -1,0 +1,74 @@
+<%@stream=Stream.find(params[:id])%>
+<h1> 
+	<%=@stream.stream_name%>
+</h1>
+<div class="row">
+  <aside class="span4">
+   <section>
+    <%= render 'follow_stream_form' if signed_in? %>
+
+<a href="<%= stream_followers_stream_path(@stream) %>">
+  <strong id="stream_followers" class="stream_stat">
+<%= @stream.users.count %>
+</strong>
+followers
+</a>
+<div>
+</div>
+</section>
+  </aside>
+  <div class="column">
+  	 <aside class="span8">
+       <section>
+  	 	 <% if @stream.questions.any? %>
+              <h3>Questions (<%= @stream.questions.count %>)</h3>
+                 <ol class="questions">
+                  <%= render @questions %>
+                 </ol>
+               <%= will_paginate @questions %>
+  
+            <% end %>
+        </section>
+     </aside>
+  </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

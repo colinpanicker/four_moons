@@ -20,6 +20,17 @@ require 'spec_helper'
         end
      end
 
+       describe "follower/following counts" do
+          let(:stream) { FactoryGirl.create(:stream) }
+           before do
+            user.follow_stream!(stream)
+            visit root_path
+          end
+           it { should have_link("1 following", href: following_stream_user_path(user)) }
+           #it { should have link("1 follower", href: followers user path(user)) }
+        end
+
+
         describe "follower/following counts" do
          let(:other_user) { FactoryGirl.create(:user) }
           before do

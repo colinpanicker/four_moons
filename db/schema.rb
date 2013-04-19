@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130416100139) do
+ActiveRecord::Schema.define(:version => 20130418095346) do
 
   create_table "questions", :force => true do |t|
     t.integer  "stream_id"
@@ -47,12 +47,37 @@ ActiveRecord::Schema.define(:version => 20130416100139) do
     t.datetime "updated_at", :null => false
   end
 
+  add_index "stream_users", ["stream_id"], :name => "index_stream_users_on_stream_id"
+  add_index "stream_users", ["user_id", "stream_id"], :name => "index_stream_users_on_user_id_and_stream_id", :unique => true
+  add_index "stream_users", ["user_id"], :name => "index_stream_users_on_user_id"
+
   create_table "streams", :force => true do |t|
     t.integer  "stream_id"
     t.string   "stream_name"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
     t.string   "stream_table_name"
+  end
+
+  add_index "streams", ["stream_id", "stream_name"], :name => "index_streams_on_stream_id_and_stream_name", :unique => true
+  add_index "streams", ["stream_id"], :name => "index_streams_on_stream_id", :unique => true
+  add_index "streams", ["stream_name"], :name => "index_streams_on_stream_name", :unique => true
+
+  create_table "taggings", :force => true do |t|
+    t.integer  "tag_id"
+    t.integer  "taggable_id"
+    t.string   "taggable_type"
+    t.integer  "tagger_id"
+    t.string   "tagger_type"
+    t.string   "context",       :limit => 128
+    t.datetime "created_at"
+  end
+
+  add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
+  add_index "taggings", ["taggable_id", "taggable_type", "context"], :name => "index_taggings_on_taggable_id_and_taggable_type_and_context"
+
+  create_table "tags", :force => true do |t|
+    t.string "name"
   end
 
   create_table "user_files", :force => true do |t|

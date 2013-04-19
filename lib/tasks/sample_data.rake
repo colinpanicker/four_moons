@@ -4,6 +4,7 @@ namespace :db do
      make_users
      make_questions
      make_relationships
+     make_stream_users
     end
 end
 
@@ -42,6 +43,19 @@ def make_relationships
    followed_users.each { |followed| user.follow!(followed) }
 
    followers.each { |follower| follower.follow!(user) }
+end
+
+def make_stream_users
+    users = User.all
+    user = users.first
+    streams = Stream.all
+    stream = streams.first
+    followed_streams = streams[2..8]
+    followers= users[3..40]
+
+   followed_streams.each { |stream| user.follow_stream!(stream) }
+
+   #followers.each { |follower| follower.follow!(user) }
 end
 
 

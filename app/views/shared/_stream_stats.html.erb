@@ -1,0 +1,9 @@
+<% @user ||= current_user %>
+<div class="stream_stats">
+<a href="<%= stream_following_user_path(@user) %>">
+<strong id="stream_following" class="stream_stat">
+<%= @user.streams.count %>
+</strong>
+streams of interest
+</a>
+</div>

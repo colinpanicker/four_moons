@@ -66,17 +66,16 @@ def addimage
 end
 
 
-def addstream
- @user=User.find(params[:user_id])
- StreamUser.delete_all(user_id: params[:user_id])
- a=params[:user]
- a.each_value do |val|
-  val.each do |f|
-   StreamUser.create(stream_id: f.to_s, user_id: params[:user_id])
- end
- end
- redirect_to @user
+def stream_following
+ @title = "Streams of Interests"
+   @user = User.find(params[:id])  
+   @streams = @user.streams.paginate(page: params[:page])
+   render 'show_streams',:id=>@user.id
 end
+
+
+
+
 
 def following
 @title = "Following"
@@ -84,6 +83,7 @@ def following
 @users = @user.followed_users.paginate(page: params[:page])
 render 'show_follow'
 end
+
 def followers
 @title = "Followers"
 @user = User.find(params[:id])
