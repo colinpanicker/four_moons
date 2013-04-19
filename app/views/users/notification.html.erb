@@ -1,0 +1,30 @@
+<h1>Notifications</h1>
+
+<div  >
+  <section>
+	<% Notification.all.each do |notification|%>
+	   <% if notification.user_id==current_user.id %>
+          <% contents=notification.content.split("clns")%>
+          <li> 
+          	   <% if notification.content_type =="gpost"%>
+                 <% user=contents[0] %>
+                 <% group=contents[2]%>
+                 <% @group=Group.find_by_group_name(group)%>
+                 <% content= user+contents[1]+group%>
+               <% elsif notification.content_type =="greply" %>
+                 <% group=contents[4] %>
+                 <% @group=Group.find_by_group_name(group)%>
+                 <% content= contents[0]+contents[1]+contents[2]+contents[3]+contents[4]%>
+              <% end %>
+              
+              <span class="content">
+                  <b><%=link_to content,@group%></b>
+                  <br/>
+              </span>
+
+          </li>
+        <% end%>
+    <% end %>
+    <%= button_to "OK", del_notifications_users_path, :method=> "delete",class: "btn btn-large btn-primary"%>
+  </section>
+</div>

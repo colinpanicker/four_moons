@@ -11,9 +11,16 @@
 
 class User < ActiveRecord::Base
   attr_accessible :email, :name ,:password ,:password_confirmation, :qualification, :designation,:image
-  has_many :stream_users
-  has_many :user_files
+  has_many :stream_users,dependent: :destroy
+  has_many :user_files,dependent: :destroy
   has_many :streams, through: :stream_users
+  has_many :group_users, dependent: :destroy
+  has_many :group_requests,dependent: :destroy
+  has_many :groups, through: :group_users
+  has_many :posts, dependent: :destroy
+  has_many :comments,dependent: :destroy
+  has_many :notifications,dependent: :destroy
+
   has_secure_password
 
   mount_uploader :image,ImageUploader

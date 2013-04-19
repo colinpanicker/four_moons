@@ -1,0 +1,116 @@
+<% provide(:title, @group.group_name) %>
+ <div>
+   <h1>
+   	 <%group=Group.find(params[:id])%>
+     <%=group.group_name%>
+   </h1>  
+ </div>
+ <% if current_user.id==group.admin_id%>
+   <div class="nav pull-right">
+
+          <%= link_to "Delete Group",delete_group_groups_path,:method=>"delete"%>
+    </div>
+    
+   <% end %>
+ 
+<div class="row">
+  <aside class="span4">
+    <section>
+ 	
+ 	   <% GroupRequest.all.each do |request|%>
+ 	     <% grp=Group.find_by_id(request.group_id)%>
+ 	     <%if request.status=='pending'&& grp==@group%>
+ 	        <% user=User.find_by_id(request.user_id) %>
+ 	          <li>
+ 	           <b> <%= user.name + " requested to join the group"%></b>
+ 	            <% if grp.admin_id==current_user.id%>
+                 <li>
+                  <span>
+ 	                <%= button_to "Accept",accept_groups_path(:format=>request.id,:id=>@group.id) ,:method=>"put",class: "btn btn-large btn-primary"%>
+ 	                <%= button_to "Reject", reject_groups_path(:format=>request.id,:id=>@group.id),:method=>"put",class: "btn btn-large btn-primary"%>
+                </span>
+ 	               </li>
+ 	            <% end %>
+ 	          </li>
+ 	        <% end%>
+
+ 	      <%end%>
+    </section>
+  </aside>
+ </div>
+
+<div class="column">
+  <aside class="span8">
+      <section>
+       <% @post=Post.new %>
+       <%= form_for @post,:url=>createpost_posts_path do |f| %>
+         <div class="post-text">
+           <%= f.text_area :content, placeholder: "Compose post..." %>
+         </div>
+         <%=hidden_field_tag 'group_id',group.id%>
+         <%= f.submit "Post", class: "btn btn-large btn-primary" %>
+        <% end %>
+     </section>
+  </aside>
+</div>
+
+<div class="span8">
+  <% if group.posts.any? %>
+     <% group.post_ids.each do |f| %> 
+     <%@post=Post.find(f)%>
+     <div class="hero-unit">
+      <ol class="posts">
+        <li>
+          <% owner = User.find(@post.user_id)%>
+          <span class="users"><%= link_to owner.name,owner %></span>
+          <span class="content"><%= @post.content %></span>
+          <span class="timestamp">
+              Posted <%= time_ago_in_words(@post.created_at) %> ago.
+          </span>
+          <% if current_user?(owner)%>
+                  <%= link_to "delete", deletepost_posts_path(@post),method: :delete,confirm: "You sure?", title: @post.content%>
+          <% end %>   
+              <%if(@post.comments.any?)%>
+               </br>
+               <span><b>Replies</b></span>
+                <%@post.comment_ids.each do |com|%>
+                 <% @comment=Comment.find(com) %>     
+                     <li>
+                      <% commentor = User.find(@comment.user_id)%>
+                       <span class="users"><%= link_to commentor.name , commentor%></span>   
+                       <span class="content"><%= @comment.content %></span>
+                       <span class="timestamp">
+                        Posted <%= time_ago_in_words(@comment.created_at) %> ago.
+                        </span>
+                        <% if current_user?(commentor)%>
+                          <%= link_to "delete", deletecomment_posts_path(@comment),method: :delete,confirm: "You sure?", title: @comment.content%>
+                        <% end %>
+                     </li>
+                  
+              <% end %>
+             <% end %>
+
+              
+              <% @comment=Comment.new %>
+              <%= form_for @comment,:url=>addcomment_posts_path do |t| %>
+                <div class="post-text">
+                     <%= t.text_area :content, placeholder: "Compose new micropost..." %>
+                     <%= hidden_field_tag 'post_id',@post.id%>
+              
+                
+              </div>
+                 <%= t.submit "Post", class: "btn btn-large btn-primary" %>
+              <% end %>
+   
+         </div>
+        </li>
+
+      </ol>
+    <% end %>
+<% end %>
+</div>
+ 
+
+
+
+

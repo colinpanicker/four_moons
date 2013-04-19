@@ -121,6 +121,14 @@ height: auto;
 margin-bottom: 15px;
 @include box_sizing;
 }
+post-text{
+border: 1px solid #bbb;
+width: 100%;
+padding: 10px;
+height: 150px;
+margin-bottom: 15px;
+@include box_sizing;
+}
 
 #error_explanation {
 color: #f00;
@@ -148,6 +156,24 @@ border-bottom: 1px solid $grayLighter;
 }
 }
 
+.posts {
+list-style: none;
+/*margin: 10px 0 0 0;*/
+li {
+padding: 10px 0;
+border-top: 1px solid #e8e8e8;
+}
+}
 
-
+.content {
+display: block;
+}
+.timestamp {
+color: $grayLight;
+}
+.topright{
+ position: absolute;
+    top: 0;
+    right: 0;
+}
 

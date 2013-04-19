@@ -1,0 +1,18 @@
+<% provide(:title, 'All Groups') %>
+ <h1>All Groups</h1>
+
+ 
+
+   <ul class="groups">
+    <% Group.all.each do |group| %>
+   <li>
+   	<span>
+    <b> <%= group.group_name %></b>
+     
+     <%= button_to "Send Join Request",sendrequest_groups_path(:id=>group.id),:method=>"put",class: "btn btn-large btn-primary"%>
+    </span>
+  </li>
+<% end %>
+</ul>
+
+

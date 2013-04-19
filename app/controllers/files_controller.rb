@@ -22,4 +22,11 @@ class FilesController < ApplicationController
     user_file=UserFile.find(params[:format])
     send_file 'public'+user_file.file_url
   end
+
+  def delete_file
+    user_file=UserFile.find(params[:format])
+    UserFile.destroy(user_file)
+    flash[:success]="File deleted"
+    redirect_to :back
+  end
 end

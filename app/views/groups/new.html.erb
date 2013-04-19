@@ -1,0 +1,10 @@
+<h1>Create a new Group</h1>
+<div>
+	 <% user=User.find(params[:format]) %>
+	 <%= form_for(@group) do |f| %>
+        <%= f.label :group_name ,"Name"%>
+        <%= f.text_field :group_name %>
+        <%= hidden_field_tag 'admin_id',user.id%>
+        <%= f.submit "Create Group", class: "btn btn-large btn-primary" %>
+       <% end %>
+     </div>
