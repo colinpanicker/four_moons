@@ -47,22 +47,82 @@
 
 </div>
 <% else %>
-  
+   <div class="row">
       <h1>Four Moons</h1>
-      <div class="streams">
-      <table>
-
+   </div>   
+   
+  <div class="row" style="position: center">
+       </br>
+       </br>
+       </br> 
       <% @str = Stream.all %>
-      <%i = 0%>
-      <% while @str.at(i) do %>
-       <tr> 
-       <td><%=button_to @str.at(i).stream_name,@str.at(i),:method=>"get", class: "mybtn"%> </td>
-       <td><%=button_to @str.at(i+1).stream_name,@str.at(i+1),:method=>"get" , class: "mybtn"%></td>
-       <td><%=button_to @str.at(i+2).stream_name,@str.at(i+2),:method=>"get", class: "mybtn"%></td>
-       </tr>
-       <%i = i+3 %>
-       <%end%>
-       
-      </table>
-      </div>
-<% end %>      
+      <% names = @str.map(&:stream_name)%>
+    <ul style="padding: 0px; position: relative; width:100% ; height:200px" class="roundabout-holder">
+    <li class="roundabout-moveable-item" 
+        style="position: absolute; opacity: 0.63; z-index: 170; font-size: 20px; width: 150px; height:150px">
+        <div style="margin-top:70px; text-align:center;"><span><%=link_to @str.at(0).stream_table_name,@str.at(0)%></span>
+        </div>
+    </li>
+    <li class="roundabout-moveable-item" 
+        style="position: absolute;opacity: 0.43; z-index: 109; font-size: 20px;width: 150px; height:150px">
+        <div style="margin-top:70px; text-align:center;"><span><%=link_to @str.at(1).stream_table_name,@str.at(1) %></span>
+        </div>
+    </li>
+    <li class="roundabout-moveable-item" 
+        style="position: absolute;opacity: 0.43; z-index: 109; font-size: 20px;width: 150px; height:150px">
+        <div style="margin-top:70px; text-align:center;"><span class="content"><%=link_to @str.at(2).stream_table_name,@str.at(2) %></span>
+        </div>
+    </li>
+    <li class="roundabout-moveable-item" 
+        style="position: absolute; opacity: 0.63; z-index: 170; font-size: 20px;width: 150px; height:150px">
+        <div style="margin-top:70px; text-align:center;"><span><%=link_to @str.at(3).stream_table_name,@str.at(3) %></span>
+        </div>
+    </li>
+    <li class="roundabout-moveable-item" 
+        style="position: absolute;opacity: 0.89; z-index: 246; font-size: 20px;width: 150px; height:150px">
+       <div style="margin-top:70px; text-align:center;"><span><%=link_to @str.at(4).stream_table_name,@str.at(4) %></span>
+       </div>
+    </li>
+    <li class="roundabout-moveable-item roundabout-in-focus" 
+        style="position: absolute; opacity: 1; z-index: 280; font-size: 20px;width: 150px; height:150px">
+        <div style="margin-top:70px; text-align:center;"><span><%=link_to @str.at(5).stream_table_name,@str.at(5) %></span>
+        </div>
+    </li>
+    <li class="roundabout-moveable-item" 
+        style="position: absolute; opacity: 0.89; z-index: 246; font-size: 20px;width: 150px; height:150px">
+        <div style="margin-top:70px; text-align:center;"><span><%=link_to @str.at(6).stream_table_name,@str.at(6) %></span>
+        </div>
+    </li>
+
+    <li class="roundabout-moveable-item" 
+        style="position: absolute; opacity: 0.89; z-index: 246; font-size: 20px;width: 150px; height:150px">
+        <div style="margin-top:70px; text-align:center;"><span><%=link_to @str.at(7).stream_table_name,@str.at(7) %></span>
+        </div>
+    </li>
+
+    <li class="roundabout-moveable-item" 
+        style="position: absolute; opacity: 0.89; z-index: 246; font-size: 20px;width: 150px; height:150px">
+        <div style="margin-top:70px; text-align:center;"><span><%= link_to @str.at(8).stream_table_name,@str.at(8) %></span>
+        </div>
+    </li>
+
+    <li class="roundabout-moveable-item" 
+        style="position: absolute; opacity: 0.89; z-index: 246; font-size: 20px;width: 150px; height:150px">
+        <div style="margin-top:70px; text-align:center;"><span><%=link_to @str.at(9).stream_table_name,@str.at(9) %></span>
+        </div>
+    </li>
+
+    <li class="roundabout-moveable-item" 
+        style="position: absolute; opacity: 0; z-index: 246; font-size: 20px;width: 150px; height:150px">
+        <div style="margin-top:70px; text-align:center;"><span><%=link_to @str.at(10).stream_table_name,@str.at(10) %></span>
+        </div>
+    </li>
+
+    <li class="roundabout-moveable-item" 
+        style="position: absolute; opacity: 0; z-index: 246; font-size: 20px;width: 150px; height:150px">
+        <div style="margin-top:70px; text-align:center;"><span><%= link_to @str.at(11).stream_table_name,@str.at(11) %></span></div>
+    </li>
+    </ul>
+
+  </div>
+<% end %> 

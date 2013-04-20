@@ -22,14 +22,7 @@
   <%= button_to "All Groups", allgroups_path(current_user),:method=>"get",class: "btn btn-medium btn-primary"%>
 
   </aside>
-
-
-
-  
-
-
-
-  <div class="column">
+  <div >
   	 <aside class="span8">
       <%= render 'follow_form' if signed_in? %>
 

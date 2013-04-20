@@ -14,3 +14,8 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require_tree .
+$(document).ready(function() {
+          $('ul.roundabout-holder').roundabout({
+          	shape:'waterWheel'
+          });
+        });
