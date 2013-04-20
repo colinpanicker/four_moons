@@ -6,6 +6,7 @@
 	   <% if notification.user_id==current_user.id %>
           <% contents=notification.content.split("clns")%>
           <li> 
+              <% if notification.content_type=="gpost" || notification.content_type=="greply"%>
           	   <% if notification.content_type =="gpost"%>
                  <% user=contents[0] %>
                  <% group=contents[2]%>
@@ -21,6 +22,14 @@
                   <b><%=link_to content,@group%></b>
                   <br/>
               </span>
+            <% elsif notification.content_type =="sreply"  %>
+              <% @stream=Stream.find_by_stream_name(contents[4])%>
+              <% content= contents[0]+contents[1]+contents[2]+contents[3]+contents[4]%>
+              <span class="content">
+                  <b><%=link_to content,@stream%></b>
+                  <br/>
+              </span>
+            <% end %>
 
           </li>
         <% end%>

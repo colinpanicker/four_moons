@@ -36,6 +36,11 @@ class QuestionsController < ApplicationController
     def createreply
       @reply=current_user.replies.build(params[:reply])
       @reply.update_attributes(ques_id: params[:ques_id])
+      question=Question.find(params[:ques_id])
+      user=User.find(question.user_id)
+      stream=Stream.find(question.stream_id)
+      content=current_user.name+"clns has replied to your question:clns"+question.content+" clns in clns"+stream.stream_name
+      Notification.create(user_id: user.id,content: content,content_type: "sreply")
       if @reply.save
         flash[:success]="reply posted"
       else

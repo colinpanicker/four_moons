@@ -7,9 +7,15 @@
     <% Group.all.each do |group| %>
    <li>
    	<span>
-    <b> <%= group.group_name %></b>
-     
-     <%= button_to "Send Join Request",sendrequest_groups_path(:id=>group.id),:method=>"put",class: "btn btn-large btn-primary"%>
+    
+     <% if group.user_ids.include?(current_user.id)%> 
+        <%= link_to group.group_name,group%>
+        <%=button_to "Leave group",leave_groups_path(:id=>group.id),:method=>"delete",class: "btn btn-large btn-primary"%>
+     <% else %>
+        <%= group.group_name%>
+        <%= button_to "Send Join Request",sendrequest_groups_path(:id=>group.id),:method=>"put",class: "btn btn-large btn-primary"%>
+        
+     <%end%>    
     </span>
   </li>
 <% end %>

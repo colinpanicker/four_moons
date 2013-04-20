@@ -53,8 +53,8 @@ class GroupsController < ApplicationController
   end
 
   def reject
+    group=Group.find(params[:id])
     if current_user.id==group.admin_id
-     group=Group.find(params[:id])
      request=GroupRequest.find(params[:format])
      request.update_attributes(status: "failed")
      flash[:success]="the request is rejected"
@@ -87,5 +87,12 @@ def delete_group
   redirect_to current_user,:id=>current_user.id
 end
   
+def leave
+  group=Group.find(params[:id])
+  user=group.group_users.find(current_user.id)
+  GroupUser.destroy(user)
+  flash[:success]="group deleted from ur list"
+  redirect_to allgroups_path
+end
 
 end

@@ -1,0 +1,25 @@
+<h1>My Files</h1>
+
+<% @user=params[:format]%>
+
+
+ <% UserFile.all.each do |user_file| %>
+   
+     <%if (@user==user_file.user_id.to_s) %>
+     <li>
+       <span>
+        <%= link_to user_file.file,download_files_path(user_file), :method=> "get" %>
+        <% if @user==current_user.id.to_s%>
+           <%= link_to image_tag("delete.jpeg"),delete_file_files_path(user_file),:method=>"delete"%>
+        <% end %>
+       </span>
+     </li>
+     <% end %>
+  
+<% end %>
+<<<<<<< HEAD
+=======
+
+>>>>>>> question
+
+

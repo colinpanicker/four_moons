@@ -10,17 +10,40 @@
        </section>
        <section>
        <%= render 'shared/stream_stats' %>
-       <%= button_to "All Streams", streams_path, :method => "get" , class: "btn btn-medium btn-primary"%>
+       <%= button_to "All Streams", streams_path, 
+           :method => "get" , class: "btn btn-medium btn-primary"%>
+       <div>
+          <%= button_to "New Group", newgroup_path(current_user), :method=>"get",class: "btn btn-medium btn-primary"%>
+          <% @user.group_ids.each do |id|%>
+           <li>
+             <% @group=Group.find_by_id(id)%>
+             <%= link_to @group.group_name, @group %>
+           </li>
+          <% end %>
+       </div> 
+    
+    <%= button_to "View Request Status",viewstatus_groups_path,:method=>"get",class: "btn btn-medium btn-primary"%>
        </section>
 
       <section>
         <%= render 'shared/question_form' %>
       </section>
      </aside>
+       
      <div class="span8">
        <h3>Stream Feed</h3>
+       <div class="nav pull-right">
+        <div class="row">
+          <span><%= link_to "Upload File",new_file_path, 
+                         :method=> "get",class: "btn btn-medium btn-primary"%></span>
+          <span><%= link_to "My Files",list_files_path(current_user.id), 
+                        :method=> "get",class: "btn btn-medium btn-primary"%></span>
+        </div>
+     </div>
+     </div>
          <%= render 'shared/feed' %>
      </div>
+
 
 </div>
 <% else %>

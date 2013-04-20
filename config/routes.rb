@@ -43,6 +43,7 @@ resources :groups do
     get 'viewstatus'
     put 'addpost'
     delete 'delete_group'
+    delete 'leave'
   end
 end
 
