@@ -1,4 +1,4 @@
-<div class="hero-unit">
+<div class="hero-unit" style="padding:25px;">
   <li>
     <span class="questioncontent"><b><%= question.content %></b></span>
     <b><%=link_to question.stream.stream_name,question.stream %></b>
@@ -10,25 +10,11 @@
        <p> Tags: <%= raw question.tag_list.map { |t| link_to t,tag_path(t)}.join(', ')%> </p> 
     <% end %>
      </span>
-      
        <% if question.replies.any? %>
-          <% question.reply_ids.each do |rep|%>
-             <% reply=Reply.find(rep)%>
-             <li>
-                 <b><span class="content"><%= reply.content %></span></b>
-                 <span class="timestamp">
-                 Posted <%= time_ago_in_words(reply.created_at) %> ago
-                  by <%=link_to reply.user.name,reply.user%>
-                   <% if signed_in? %>
-                    <% if current_user.id==reply.user_id%>
-                 <%= link_to "delete", deletereply_questions_path(reply), method: :delete,confirm: "You sure?",title: reply.content %>
-                <% end %>
-                <% end %>
-             </li>
-            
-          <% end %>
+       <% @replies = question.replies.paginate(page: params[:reply],:per_page => 2)%>
+       <%= render 'questions/reply'%>   
        <% end %>
-        <% if signed_in? %>
+      <% if signed_in? %>
        <% @reply=Reply.new %>
        <%= form_for @reply,:url=>createreply_questions_path do |f| %>
          <%= f.text_area :content, placeholder: "Compose new answer..." %>

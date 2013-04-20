@@ -1,0 +1,16 @@
+     <% @replies.each do |rep|%>
+             <% reply=Reply.find(rep)%>
+             <li>
+              <b><span class="content"><%= reply.content %></span></b>
+              <span class="timestamp">
+               Posted <%= time_ago_in_words(reply.created_at) %> ago
+               by <%=link_to reply.user.name,reply.user%>
+              <% if signed_in? %>
+              <% if current_user.id==reply.user_id%>
+                 <%= link_to "delete", deletereply_questions_path(reply), method: :delete,confirm: "You sure?"  ,title: reply.content %>
+              <% end %>
+              <% end %>
+             </li>
+            
+    <% end %>
+    <%=will_paginate @replies,:param_name => 'reply'%>

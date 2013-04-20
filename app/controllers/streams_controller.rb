@@ -5,7 +5,7 @@ class StreamsController < ApplicationController
 	end
 
 	def index
-       @streams = Stream.paginate(page: params[:page])
+       @streams = Stream.paginate(page: params[:page],:per_page => 5)
 
     end
 

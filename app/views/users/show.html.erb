@@ -2,24 +2,23 @@
 <div class="row">
   <aside class="span4">
    <section>
-   <h1>
-    <%= @user.name %></br>
-    <%= @user.designation %>
-   </h1>
-<div>
+    <div>
 <%= form_for(@user) do |f|%>
   <%= link_to image_tag("anonymous.png"),edit_user_path(@user) if !@user.image? %>
   <%= image_tag @user.image_url(:thumb) if @user.image?%>
 <% end %>
 </div>
+   <h1>
+    <%= @user.name %></br>
+    <%= @user.designation %>
+   </h1>
+
  <section>
 <%= render 'shared/stats' %>
 </section>
  <%= button_to "My Files",list_files_path(@user.id),:method=>"get",class: "btn btn-medium btn-primary"%>
 </section>
-
-
-  <%= button_to "All Groups", allgroups_path(current_user),:method=>"get",class: "btn btn-medium btn-primary"%>
+ 
 
   </aside>
   <div >

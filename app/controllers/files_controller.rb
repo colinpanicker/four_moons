@@ -2,7 +2,6 @@ class FilesController < ApplicationController
   def new
   	@user_file=UserFile.new
   	render 'new'
-  	
   end
  
 

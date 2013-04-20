@@ -72,6 +72,7 @@ end
   match 'add_notifications', to: 'users#notification'
   match 'newgroup', to: 'groups#new' 
   match 'allgroups', to: 'groups#index'
+  
   root :to => 'static_pages#home'
    
   match '/signup', to: 'users#new'
