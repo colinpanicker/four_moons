@@ -105,6 +105,10 @@ ActiveRecord::Schema.define(:version => 20130418101211) do
     t.string   "stream_table_name"
   end
 
+  add_index "streams", ["stream_id", "stream_name"], :name => "index_streams_on_stream_id_and_stream_name", :unique => true
+  add_index "streams", ["stream_id"], :name => "index_streams_on_stream_id", :unique => true
+  add_index "streams", ["stream_name"], :name => "index_streams_on_stream_name", :unique => true
+
   create_table "taggings", :force => true do |t|
     t.integer  "tag_id"
     t.integer  "taggable_id"

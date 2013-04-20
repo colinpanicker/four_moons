@@ -1,0 +1,14 @@
+      <table>
+
+      <% @str = Stream.all %>
+      <%i = 0%>
+      <% while @str.at(i) do %>
+       <tr> 
+       <td><%=button_to @str.at(i).stream_name,@str.at(i),:method=>"get", class: "mybtn"%> </td>
+       <td><%=button_to @str.at(i+1).stream_name,@str.at(i+1),:method=>"get" , class: "mybtn"%></td>
+       <td><%=button_to @str.at(i+2).stream_name,@str.at(i+2),:method=>"get", class: "mybtn"%></td>
+       </tr>
+       <%i = i+3 %>
+       <%end%>
+       
+      </table>
