@@ -1,7 +1,15 @@
 <% provide(:title, 'All users') %>
  <h1>All users</h1>
 
- <%= will_paginate %>
+ <!--<%= will_paginate %>!-->
+ <%= form_tag(:action => "formdata") do %>
+   
+<b>Search For Users on /name/email/designation/qualification</b>
+  <%= text_field_tag("name") %>
+  <%= submit_tag("Search") %>
+<% end %>
+
+ 
 
    <ul class="users">
     <% @users.each do |user| %>

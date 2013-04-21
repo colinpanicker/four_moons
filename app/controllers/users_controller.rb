@@ -15,9 +15,48 @@ class UsersController < ApplicationController
 
   end
 
+def formdata
+     @name=params[:name]
+     res=User.find_all_by_name(@name)
+     res2=User.find_by_name(@name)
+     res3=User.find_all_by_email(@name)
+     res4=User.find_by_email(@name)
+     res5=User.find_all_by_qualification(@name)
+     res6=User.find_by_qualification(@name)
+     res7=User.find_all_by_designation(@name)
+     res8=User.find_by_designation(@name)
+     #res2=User.find_by_email(@name)
+     #@answer=res
+     #@userid=@answer[0].id
+     #@check=res[0].name
+     if res2 
+          @answer=res
+          render 'show_1'
+     else
+      if res4
+        @answer=res3
+        render 'show_1'
+      else
+        if res6
+          @answer=res5
+          render 'show_1'
+        else
+          if res8
+            @answer=res7
+            render 'show_1'
+          else
+          render 'show_2'
+        end
+        end
+      end
+     end     
+ end 
+
   def show
    @user = User.find(params[:id])
    @questions = @user.questions.paginate(page: params[:page],:per_page => 5)
+   @users = User.find(:all, :conditions =>   {:active => true})
+   @users.delete current_user
 
   end
 

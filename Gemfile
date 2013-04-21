@@ -10,6 +10,7 @@ gem 'simple_form'
 gem 'carrierwave'
 gem 'rmagick' 
 gem 'acts-as-taggable-on'
+gem 'juggernaut', :git => "git://github.com/deepakprabhakara/juggernaut.git"
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

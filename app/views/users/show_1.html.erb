@@ -1,0 +1,7 @@
+<b><h1>Search Results for      "<%= @name %>"</h1><br><br><br></b>
+<% l = @answer.length %>
+<% for i in (0..l-1) do%>
+<b><p style="word-spacing: 5%;"><li><a href='/users/<%= @answer.at(i).id %>'><%= @answer.at(i).name %></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='/users/<%= @answer.at(i).id %>'><%= image_tag @answer.at(i).image_url(:thumb)%><br><br><br></a></li></p></b>
+ 
+  
+<%end%>

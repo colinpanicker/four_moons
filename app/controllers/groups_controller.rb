@@ -13,7 +13,7 @@ class GroupsController < ApplicationController
      group=Group.find(@group)
      GroupUser.create(user_id: params[:admin_id], group_id: group.id)
     if @group.save
-      flash[:success] = "Welcome to Four Moons!"
+      flash[:success] = "Welcome to #{group.group_name}!"
       redirect_to @group
     else
      render 'new'
@@ -82,9 +82,9 @@ class GroupsController < ApplicationController
 end
 
 def delete_group
-  group=Group.find(params[:id])
+  group=Group.find(params[:format])
   Group.destroy(group)
-  redirect_to current_user,:id=>current_user.id
+  redirect_to root_path
 end
   
 def leave

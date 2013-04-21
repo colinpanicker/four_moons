@@ -1,10 +1,5 @@
-<<<<<<< HEAD
-   class UsersController < ApplicationController
-  before_filter :signed_in_user, only: [:index,:edit, :update]
-=======
 class UsersController < ApplicationController
   before_filter :signed_in_user, only: [:index,:edit, :update, :following, :followers]
->>>>>>> question
   before_filter :correct_user,only: [:edit, :update]
   before_filter :admin_user, only: :destroy
 
@@ -78,7 +73,7 @@ def stream_following
    render 'show_streams',:id=>@user.id
 end
 
-<<<<<<< HEAD
+
  def del_notifications
     current_user.notifications.each do |f|
       Notification.destroy(f)
@@ -94,7 +89,6 @@ end
      cookies.delete(:remember_token)
      redirect_to root_path
   end
-=======
 
 
 
@@ -113,7 +107,7 @@ def followers
 render 'show_follow'
 end
 
->>>>>>> question
+
 private
 
   def correct_user
@@ -121,12 +115,8 @@ private
    redirect_to(root_path) unless current_user?(@user)
   end
 
-<<<<<<< HEAD
-
-=======
   def admin_user
     redirect_to(root_path) unless current_user.admin?
   end
->>>>>>> question
 
 end

@@ -6,7 +6,7 @@
    </h1>  
  <% if current_user.id==group.admin_id%>
    <div class="nav pull-right">
-    <%= link_to "Delete Group",delete_group_groups_path,:method=>"delete"%>
+    <%= link_to "Delete Group",delete_group_groups_path(group),:method=>"delete"%>
      </div>
    <% end %>
 

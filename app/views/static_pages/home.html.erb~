@@ -23,14 +23,9 @@
           <span><%= link_to "View Group Request Status",viewstatus_groups_path%></span>
         </br></br>
         <span style="font-weight:bold; font-size:1em">
-
             <%="Your Groups "%></span>
             (<%= link_to "Create New Group", newgroup_path(current_user)%>)
-            </br>
-                <% if !@user.group_ids.any? %>.
-               <span><%="You Have No Groups"%></span>
-               <%end%>
-               </br>   
+          </br>
            <span>
              <% @user.group_ids.each do |id|%>
                 <ul>
@@ -44,24 +39,26 @@
            </br>
           <span><%= link_to "Upload File",new_file_path, 
                          :method=> "get",class: "btn btn-medium btn-primary"%></span>
-          <span>      
-           <ul>
-             <% @users.each do |user| %>
-           <li>
-           <%= link_to user.name ,user%>
-          </li>
-         <% end %>
-          </ul>
-          <%= render :partial => 'shared/chatroom'%>
-         </span>
-
-           
+          <span><%= link_to "My Files",list_files_path(current_user.id), 
+                        :method=> "get",class: "btn btn-medium btn-primary"%></span>             
         </div>
        </div>
      </div>     
        <div>
          <%= render 'shared/feed' %>
-        
+         <div class="nav pull-right">
+<ul>
+<% @users.each do |user| %>
+  <li>
+    <%= link_to user.name ,user%>
+  </li>
+  <% end %>
+</ul>
+
+ <%= render :partial => 'shared/chatroom'%>
+  </div>
+
+
 
 
 

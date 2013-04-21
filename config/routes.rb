@@ -2,6 +2,8 @@ FourMoons::Application.routes.draw do
 
 
 
+  get "chat/home"
+
  resources :users do
 collection do
  put 'addstream'
@@ -77,7 +79,9 @@ end
    
   match '/signup', to: 'users#new'
   match '/signin', to: 'sessions#new'
+  match '/search' , to: 'users#formdata'
   match '/signout', to: 'sessions#destroy', via: :delete
+  match "/chat/send", :controller => "chat", :action => "send_message" 
   get 'tags/:tag', to: 'questions#index', as: :tag  
 
 

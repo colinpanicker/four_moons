@@ -1,0 +1,61 @@
+<html>
+<head>
+    
+<style type="text/css" media="screen">
+    h1 {
+      margin: 1em 0;
+    }
+    #msg_body{
+      width: 250px;
+    }
+    #chatbox{
+      border: 2px solid rgb(42, 18, 94);
+      border-radius: 4px;
+      padding: 10px;
+      padding-right: 0px;
+      padding-bottom: 0px;
+      width: 300px;
+    }
+    #mesg{
+      overflow-y: scroll;
+      width: 250px;
+      height: 100px;
+      padding: 10px;
+    }
+    #chat_window{
+      margin: 0px;
+    }
+  </style>
+
+  </head>
+<body>
+<script src="http://localhost:8080/application.js" type="text/javascript" charset="utf-8"></script>
+<div id="chatbox">
+<div id="mesg"></div>
+<script type="text/javascript" charset="utf-8">
+    var jug = new Juggernaut();
+
+   // $("#mesg").append($("<li/>").append("Subscribing to channel1_channel2"));
+   jug.subscribe("/chats/channel1_channel2", function(data){
+var li = $("<li/>");
+li.text(data);
+//Juggernaut.send_data(data, /chats/channel1_channel2)
+$("#mesg").append(" ").append(li);
+}); 
+  // var message      = new Juggernaut.Message;
+ //message.type     = "publish";
+ //message.channels = args;
+  //message.data     = data;
+
+  //this.write(message); 
+   Juggernaut.publish("/chats/channel1_channel2",data)
+</script>
+
+<%= form_tag("/chat/send", :method => "get", :id => 'chat_window', :remote => true) do %>
+<%= text_field_tag 'msg_body', '', :size => 5 %>
+<%= hidden_field_tag 'sender', current_user.name%>
+<%= submit_tag 'Send' %>
+</div>
+<% end %>
+</body>
+</html>

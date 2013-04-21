@@ -2,6 +2,8 @@ FourMoons::Application.routes.draw do
 
 
 
+  get "chat/home"
+
  resources :users do
 collection do
  put 'addstream'
@@ -43,22 +45,24 @@ resources :groups do
     get 'viewstatus'
     put 'addpost'
     delete 'delete_group'
+    delete 'leave'
   end
 end
 
-<<<<<<< HEAD
+
 resources :posts do
   collection do
     post 'createpost'
     post 'addcomment'
     delete 'deletecomment'
     delete 'deletepost'
-=======
+  end
+end
+
 resources :questions do
   collection do
     post 'createreply'
     delete 'deletereply'
->>>>>>> question
   end
 end
 
@@ -67,18 +71,16 @@ end
   resources :stream_users, only: [:create, :destroy]
 
 
-<<<<<<< HEAD
-  root :to => 'static_pages#login'
   match 'add_notifications', to: 'users#notification'
   match 'newgroup', to: 'groups#new' 
   match 'allgroups', to: 'groups#index'
-=======
+  
   root :to => 'static_pages#home'
    
->>>>>>> question
   match '/signup', to: 'users#new'
   match '/signin', to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete
+  match "/chat/send", :controller => "chat", :action => "send_message" 
   get 'tags/:tag', to: 'questions#index', as: :tag  
 
 
